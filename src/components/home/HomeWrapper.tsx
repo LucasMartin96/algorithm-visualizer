@@ -1,29 +1,16 @@
-import React from 'react';
-import HeroSection from '@/components/home/HeroSection';
-import Section from '@/components/layout/Section';
-import Card from '@/components/ui/Card';
-import AlgorithmList from '@/components/ui/AlgorithmList';
+import {
+  pathfindingAlgorithms,
+  sortingAlgorithms,
+  otherAlgorithms,
+} from '@/data/algorithms';
+import HeroSection from './HeroSection';
+import Section from '../layout/Section';
+import Card from '../ui/Card';
+import AlgorithmList from '../ui/AlgorithmList';
 
-const pathfindingAlgorithms = [
-  { name: "Dijkstra's Algorithm", status: 'available' as const },
-  { name: 'A* Algorithm', status: 'coming-soon' as const },
-  { name: 'BFS & DFS', status: 'coming-soon' as const },
-];
-
-const sortingAlgorithms = [
-  { name: 'Bubble Sort', status: 'coming-soon' as const },
-  { name: 'Quick Sort', status: 'coming-soon' as const },
-  { name: 'Merge Sort', status: 'coming-soon' as const },
-];
-
-const otherAlgorithms = [
-  { name: 'Binary Search', status: 'coming-soon' as const },
-  { name: 'Graph Traversal', status: 'coming-soon' as const },
-];
-
-export default function Home() {
+const HomeWrapper = () => {
   return (
-    <main className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-gray-900">
       <HeroSection />
 
       <Section darker>
@@ -58,6 +45,8 @@ export default function Home() {
           </p>
         </div>
       </Section>
-    </main>
+    </div>
   );
-}
+};
+
+export default HomeWrapper;

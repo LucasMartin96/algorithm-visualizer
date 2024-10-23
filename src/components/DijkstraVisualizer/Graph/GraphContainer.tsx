@@ -81,7 +81,6 @@ const GraphContainer: React.FC = () => {
         preserveAspectRatio="xMidYMid meet"
         style={{ touchAction: 'none' }}
       >
-        {/* Edges */}
         {graph.edges.map((edge) => (
           <Edge
             key={`${edge.source}-${edge.target}`}
@@ -96,7 +95,6 @@ const GraphContainer: React.FC = () => {
           />
         ))}
 
-        {/* Nodes */}
         {graph.nodes.map((node) => (
           <Node
             key={node.id}

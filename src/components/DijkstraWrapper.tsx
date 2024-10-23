@@ -5,7 +5,7 @@ import DijkstraVisualizer from './DijkstraVisualizer/DijkstraVisualizer';
 
 const DijkstraWrapper = () => {
   return (
-    <div className="w-full">
+    <div className="w-full h-full max-h-[800px]">
       <DijkstraVisualizer />
     </div>
   );

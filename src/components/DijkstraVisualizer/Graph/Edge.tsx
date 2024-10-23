@@ -23,7 +23,6 @@ const Edge: React.FC<EdgeProps> = ({
 
   return (
     <g>
-      {/* Edge line */}
       <line
         x1={source.x}
         y1={source.y}
@@ -34,7 +33,6 @@ const Edge: React.FC<EdgeProps> = ({
         } transition-colors duration-200`}
       />
 
-      {/* Weight label */}
       <g transform={`translate(${midX}, ${midY})`}>
         <rect
           x="-12"
@@ -53,7 +51,6 @@ const Edge: React.FC<EdgeProps> = ({
         </text>
       </g>
 
-      {/* Remove button */}
       <g
         transform={`translate(${midX}, ${midY})`}
         onClick={(e) => {

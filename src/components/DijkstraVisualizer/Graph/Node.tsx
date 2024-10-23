@@ -111,7 +111,6 @@ const Node: React.FC<NodeProps> = ({
       style={{ cursor: getCursor() }}
       className="transition-transform duration-150"
     >
-      {/* Pulsing effect for current node */}
       {isCurrentNode && (
         <>
           <circle
@@ -129,7 +128,6 @@ const Node: React.FC<NodeProps> = ({
         </>
       )}
 
-      {/* Node shadow */}
       <circle
         cx={node.x}
         cy={node.y}
@@ -137,7 +135,6 @@ const Node: React.FC<NodeProps> = ({
         className="fill-slate-950/50 translate-y-1 blur-sm"
       />
 
-      {/* Node circle with potential glow effect */}
       <circle
         cx={node.x}
         cy={node.y}
@@ -149,7 +146,6 @@ const Node: React.FC<NodeProps> = ({
         `}
       />
 
-      {/* Node ID with potential highlight */}
       <text
         x={node.x}
         y={node.y}
@@ -163,16 +159,13 @@ const Node: React.FC<NodeProps> = ({
         {node.id}
       </text>
 
-      {/* Remove Button */}
       <g className="remove-button-area">
-        {/* Larger invisible hit area */}
         <circle
           cx={node.x + 15}
           cy={node.y - 15}
           r={12}
           className="fill-transparent stroke-none cursor-pointer"
         />
-        {/* Visible button */}
         <circle
           cx={node.x + 15}
           cy={node.y - 15}

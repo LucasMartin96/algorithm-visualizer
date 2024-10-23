@@ -103,7 +103,6 @@ const Node: React.FC<NodeProps> = ({
       }}
       className="transition-transform duration-150"
     >
-      {/* Node shadow */}
       <circle
         cx={node.x}
         cy={node.y}
@@ -112,7 +111,6 @@ const Node: React.FC<NodeProps> = ({
         filter="blur(8px)"
       />
 
-      {/* Main node circle */}
       <circle
         cx={node.x}
         cy={node.y}
@@ -121,7 +119,6 @@ const Node: React.FC<NodeProps> = ({
                    hover:brightness-110 stroke-slate-900 stroke-2`}
       />
 
-      {/* Node ID */}
       <text
         x={node.x}
         y={node.y}
@@ -132,7 +129,6 @@ const Node: React.FC<NodeProps> = ({
         {node.id}
       </text>
 
-      {/* Distance label */}
       {distance !== undefined && (
         <text
           x={node.x}
@@ -144,16 +140,13 @@ const Node: React.FC<NodeProps> = ({
         </text>
       )}
 
-      {/* Remove Button */}
       <g className="remove-button-area">
-        {/* Larger invisible hit area */}
         <circle
           cx={node.x + 15}
           cy={node.y - 15}
           r={12}
           className="fill-transparent stroke-none cursor-pointer"
         />
-        {/* Visible button */}
         <circle
           cx={node.x + 15}
           cy={node.y - 15}

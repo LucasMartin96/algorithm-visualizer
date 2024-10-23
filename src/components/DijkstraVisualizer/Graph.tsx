@@ -46,7 +46,6 @@ const Graph: React.FC<GraphProps> = ({
         preserveAspectRatio="xMidYMid meet"
         style={{ touchAction: 'none' }}
       >
-        {/* Grid background */}
         <defs>
           <pattern
             id="grid"
@@ -64,7 +63,6 @@ const Graph: React.FC<GraphProps> = ({
         </defs>
         <rect width="1200" height="600" fill="url(#grid)" />
 
-        {/* Edges */}
         {graph.edges.map((edge) => {
           const sourceNode = graph.nodes.find((n) => n.id === edge.source);
           const targetNode = graph.nodes.find((n) => n.id === edge.target);
@@ -75,7 +73,6 @@ const Graph: React.FC<GraphProps> = ({
 
           return (
             <g key={`${edge.source}-${edge.target}`}>
-              {/* Edge line */}
               <line
                 x1={sourceNode.x}
                 y1={sourceNode.y}
@@ -91,7 +88,6 @@ const Graph: React.FC<GraphProps> = ({
                 `}
               />
 
-              {/* Edge weight */}
               <g transform={`translate(${midX},${midY})`}>
                 <rect
                   x="-12"
@@ -113,7 +109,6 @@ const Graph: React.FC<GraphProps> = ({
           );
         })}
 
-        {/* Nodes */}
         {graph.nodes.map((node) => (
           <Node
             key={node.id}
