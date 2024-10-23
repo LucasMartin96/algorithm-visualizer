@@ -3,6 +3,7 @@ interface LegendItem {
   description: string;
 }
 
+// TO COMMIT
 const legendItems: LegendItem[] = [
   { color: 'bg-white', description: 'Unvisited Node' },
   { color: 'bg-blue-500', description: 'Start Node' },
