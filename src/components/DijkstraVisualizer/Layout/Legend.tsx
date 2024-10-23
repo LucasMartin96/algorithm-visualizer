@@ -5,21 +5,19 @@ interface LegendItem {
 
 // TO COMMIT
 const legendItems: LegendItem[] = [
-  { color: 'bg-white', description: 'Unvisited Node' },
-  { color: 'bg-blue-500', description: 'Start Node' },
-  { color: 'bg-red-500', description: 'End Node' },
-  { color: 'bg-green-500', description: 'Visited Node' },
-  { color: 'bg-yellow-500', description: 'Path Node' },
+  { color: 'bg-emerald-400', description: 'Start Node' },
+  { color: 'bg-pink-400', description: 'End Node' },
+  { color: 'bg-amber-400', description: 'Path Node' },
+  { color: 'bg-violet-400', description: 'Via Node' },
+  { color: 'bg-slate-400', description: 'Regular Node' },
 ];
 
 const Legend = () => {
   return (
-    <div className="flex flex-col gap-2 p-4 bg-gray-100 rounded-lg">
+    <div className="flex gap-6 text-sm bg-slate-700/50 p-4 rounded-lg">
       {legendItems.map((item, index) => (
         <div key={index} className="flex items-center gap-2">
-          <div
-            className={`w-6 h-6 ${item.color} border border-gray-300 rounded`}
-          />
+          <div className={`w-3 h-3 rounded-full ${item.color}`} />
           <span>{item.description}</span>
         </div>
       ))}
