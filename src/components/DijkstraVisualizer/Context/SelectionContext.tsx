@@ -2,8 +2,7 @@
 
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { useAlgorithm } from './AlgorithmContext';
-
-export type SelectionMode = 'edge' | 'start' | 'end' | 'via' | null;
+import { SelectionMode } from '../Graph/types';
 
 interface SelectionContextType {
   selectionMode: SelectionMode;
@@ -19,7 +18,7 @@ const SelectionContext = createContext<SelectionContextType | undefined>(
 export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [selectionMode, setSelectionMode] = useState<SelectionMode>(null);
+  const [selectionMode, setSelectionMode] = useState<SelectionMode | null>(null);
   const { setStartNode, setEndNode, addViaNode } = useAlgorithm();
 
   const handleNodeSelection = useCallback(

@@ -1,10 +1,12 @@
 import { useGraph } from '../Context/GraphContext';
 import { useAlgorithm } from '../Context/AlgorithmContext';
 import { useSelection } from '../Context/SelectionContext';
-import { useState } from 'react';
+import { useEdgeSelection } from './hooks/useEdgeSelection';
 import Node from './Node';
 import Edge from './Edge';
 import EdgeControls from './EdgeControls';
+import GridBackground from './GridBackground';
+import { SelectionMode } from './types';  // adjust the path if needed
 
 const GraphContainer: React.FC = () => {
   const { graph, removeNode, removeEdge, handleNodeMove } = useGraph();
@@ -20,41 +22,23 @@ const GraphContainer: React.FC = () => {
     addViaNode,
   } = useAlgorithm();
   const { selectionMode, setSelectionMode } = useSelection();
-  const [isEdgeMode, setIsEdgeMode] = useState(false);
-  const [selectedSource, setSelectedSource] = useState<string | null>(null);
-  const [selectedTarget, setSelectedTarget] = useState<string | null>(null);
 
-  const handleNodeClick = (nodeId: string) => {
-    if (isEdgeMode) {
-      if (!selectedSource) {
-        setSelectedSource(nodeId);
-      } else if (nodeId !== selectedSource) {
-        setSelectedTarget(nodeId);
-      }
-      return;
-    }
-    switch (selectionMode) {
-      case 'start':
-        setStartNode(nodeId);
-        setSelectionMode(null);
-        break;
-      case 'end':
-        setEndNode(nodeId);
-        setSelectionMode(null);
-        break;
-      case 'via':
-        addViaNode(nodeId);
-        setSelectionMode(null);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const resetEdgeSelection = () => {
-    setSelectedSource(null);
-    setSelectedTarget(null);
-  };
+  const {
+    isEdgeMode,
+    setIsEdgeMode,
+    selectedSource,
+    selectedTarget,
+    handleNodeClick,
+    resetEdgeSelection
+  } = useEdgeSelection(
+    setStartNode, 
+    setEndNode, 
+    addViaNode, 
+    selectionMode, 
+    (mode: SelectionMode | null) => {
+      if (mode !== null) setSelectionMode(mode);
+    } 
+  );
 
   const currentProcessingNode =
     currentStep >= 0 && steps[currentStep]
@@ -81,6 +65,7 @@ const GraphContainer: React.FC = () => {
         preserveAspectRatio="xMidYMid meet"
         style={{ touchAction: 'none' }}
       >
+        <GridBackground />
         {graph.edges.map((edge) => (
           <Edge
             key={`${edge.source}-${edge.target}`}
