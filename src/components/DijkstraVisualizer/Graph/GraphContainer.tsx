@@ -8,16 +8,16 @@ import EdgeControls from './EdgeControls';
 
 const GraphContainer: React.FC = () => {
   const { graph, removeNode, removeEdge, handleNodeMove } = useGraph();
-  const { 
-    startNode, 
-    endNode, 
-    viaNodes, 
+  const {
+    startNode,
+    endNode,
+    viaNodes,
     shortestPathEdges,
     steps,
     currentStep,
     setStartNode,
     setEndNode,
-    addViaNode 
+    addViaNode,
   } = useAlgorithm();
   const { selectionMode, setSelectionMode } = useSelection();
   const [isEdgeMode, setIsEdgeMode] = useState(false);
@@ -56,12 +56,13 @@ const GraphContainer: React.FC = () => {
     setSelectedTarget(null);
   };
 
-  const currentProcessingNode = currentStep >= 0 && steps[currentStep] 
-    ? steps[currentStep].currentNode 
-    : null;
+  const currentProcessingNode =
+    currentStep >= 0 && steps[currentStep]
+      ? steps[currentStep].currentNode
+      : null;
 
   const nodePositions = Object.fromEntries(
-    graph.nodes.map(node => [node.id, { x: node.x, y: node.y }])
+    graph.nodes.map((node) => [node.id, { x: node.x, y: node.y }])
   );
 
   return (
@@ -87,8 +88,9 @@ const GraphContainer: React.FC = () => {
             edge={edge}
             nodePositions={nodePositions}
             isInPath={shortestPathEdges.some(
-              e => (e.source === edge.source && e.target === edge.target) ||
-                   (e.source === edge.target && e.target === edge.source)
+              (e) =>
+                (e.source === edge.source && e.target === edge.target) ||
+                (e.source === edge.target && e.target === edge.source)
             )}
             onRemove={() => removeEdge(edge.source, edge.target)}
           />
@@ -105,12 +107,14 @@ const GraphContainer: React.FC = () => {
             isEnd={node.id === endNode}
             isVia={viaNodes.includes(node.id)}
             isInPath={shortestPathEdges.some(
-              e => e.source === node.id || e.target === node.id
+              (e) => e.source === node.id || e.target === node.id
             )}
             isCurrentNode={node.id === currentProcessingNode}
             onNodeMove={handleNodeMove}
             isEdgeMode={isEdgeMode}
-            isSelected={node.id === selectedSource || node.id === selectedTarget}
+            isSelected={
+              node.id === selectedSource || node.id === selectedTarget
+            }
             selectionMode={selectionMode}
           />
         ))}

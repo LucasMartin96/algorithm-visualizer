@@ -13,11 +13,7 @@ const Select: React.FC<SelectProps> = ({
 }) => {
   return (
     <div className="flex flex-col gap-1">
-      {label && (
-        <label className="text-sm text-slate-300">
-          {label}
-        </label>
-      )}
+      {label && <label className="text-sm text-slate-300">{label}</label>}
       <select
         className={`
           px-3 py-1 bg-slate-800 border border-slate-600 rounded-md text-sm
@@ -31,7 +27,7 @@ const Select: React.FC<SelectProps> = ({
         `}
         {...props}
       >
-        {options.map(option => (
+        {options.map((option) => (
           <option
             key={option.value}
             value={option.value}
@@ -41,11 +37,7 @@ const Select: React.FC<SelectProps> = ({
           </option>
         ))}
       </select>
-      {error && (
-        <span className="text-xs text-pink-400">
-          {error}
-        </span>
-      )}
+      {error && <span className="text-xs text-pink-400">{error}</span>}
     </div>
   );
 };

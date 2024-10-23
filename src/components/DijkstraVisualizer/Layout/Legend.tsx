@@ -1,22 +1,27 @@
-const Legend: React.FC = () => {
-  const items = [
-    { color: 'bg-emerald-400', label: 'Start Node' },
-    { color: 'bg-pink-400', label: 'End Node' },
-    { color: 'bg-amber-400', label: 'Path Node' },
-    { color: 'bg-violet-400', label: 'Via Node' },
-    { color: 'bg-slate-400', label: 'Regular Node' },
-  ];
+interface LegendItem {
+  color: string
+  description: string
+}
 
+const legendItems: LegendItem[] = [
+  { color: 'bg-white', description: 'Unvisited Node' },
+  { color: 'bg-blue-500', description: 'Start Node' },
+  { color: 'bg-red-500', description: 'End Node' },
+  { color: 'bg-green-500', description: 'Visited Node' },
+  { color: 'bg-yellow-500', description: 'Path Node' }
+]
+
+const Legend = () => {
   return (
-    <div className="flex gap-6 text-sm bg-slate-700/50 p-4 rounded-lg">
-      {items.map(({ color, label }) => (
-        <div key={label} className="flex items-center gap-2">
-          <div className={`w-3 h-3 rounded-full ${color}`} />
-          <span className="text-slate-200">{label}</span>
+    <div className="flex flex-col gap-2 p-4 bg-gray-100 rounded-lg">
+      {legendItems.map((item, index) => (
+        <div key={index} className="flex items-center gap-2">
+          <div className={`w-6 h-6 ${item.color} border border-gray-300 rounded`} />
+          <span>{item.description}</span>
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default Legend;
+export default Legend

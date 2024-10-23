@@ -3,13 +3,13 @@ import { GraphProvider } from './GraphContext';
 import { AlgorithmProvider } from './AlgorithmContext';
 import { SelectionProvider } from './SelectionContext';
 
-export const AppProviders: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AppProviders: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   return (
     <GraphProvider>
       <AlgorithmProvider>
-        <SelectionProvider>
-          {children}
-        </SelectionProvider>
+        <SelectionProvider>{children}</SelectionProvider>
       </AlgorithmProvider>
     </GraphProvider>
   );

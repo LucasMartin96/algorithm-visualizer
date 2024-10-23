@@ -1,14 +1,9 @@
-"use client";
+'use client';
 
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { useAlgorithm } from './AlgorithmContext';
 
 export type SelectionMode = 'edge' | 'start' | 'end' | 'via' | null;
-
-interface EdgeSelection {
-  source: string | null;
-  target: string | null;
-}
 
 interface SelectionContextType {
   selectionMode: SelectionMode;
@@ -17,41 +12,50 @@ interface SelectionContextType {
   cancelSelection: () => void;
 }
 
-const SelectionContext = createContext<SelectionContextType | undefined>(undefined);
+const SelectionContext = createContext<SelectionContextType | undefined>(
+  undefined
+);
 
-export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [selectionMode, setSelectionMode] = useState<SelectionMode>(null);
   const { setStartNode, setEndNode, addViaNode } = useAlgorithm();
 
-  const handleNodeSelection = useCallback((nodeId: string) => {
-    switch (selectionMode) {
-      case 'start':
-        setStartNode(nodeId);
-        setSelectionMode(null);
-        break;
-      case 'end':
-        setEndNode(nodeId);
-        setSelectionMode(null);
-        break;
-      case 'via':
-        addViaNode(nodeId);
-        break;
-      default:
-        break;
-    }
-  }, [selectionMode, setStartNode, setEndNode, addViaNode]);
+  const handleNodeSelection = useCallback(
+    (nodeId: string) => {
+      switch (selectionMode) {
+        case 'start':
+          setStartNode(nodeId);
+          setSelectionMode(null);
+          break;
+        case 'end':
+          setEndNode(nodeId);
+          setSelectionMode(null);
+          break;
+        case 'via':
+          addViaNode(nodeId);
+          break;
+        default:
+          break;
+      }
+    },
+    [selectionMode, setStartNode, setEndNode, addViaNode]
+  );
 
   const cancelSelection = useCallback(() => {
     setSelectionMode(null);
   }, []);
 
   return (
-    <SelectionContext.Provider value={{
-      selectionMode,
-      setSelectionMode,
-      handleNodeSelection,
-      cancelSelection,
-    }}>
+    <SelectionContext.Provider
+      value={{
+        selectionMode,
+        setSelectionMode,
+        handleNodeSelection,
+        cancelSelection,
+      }}
+    >
       {children}
     </SelectionContext.Provider>
   );

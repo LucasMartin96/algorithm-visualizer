@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useCallback } from 'react';
 import { Node as NodeType } from '../../../utils/dijkstra';
@@ -40,39 +40,45 @@ const Node: React.FC<NodeProps> = ({
     return isDragging ? 'grabbing' : 'grab';
   };
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    const clickedElement = e.target as Element;
-    if (clickedElement.closest('.remove-button-area')) {
-      e.stopPropagation();
-      onRemove();
-      return;
-    }
-    if (isEdgeMode || selectionMode) {
-      e.stopPropagation();
-      onClick();
-      return;
-    }
-    const svgElement = clickedElement.closest('svg');
-    if (svgElement) {
-      const svgRect = svgElement.getBoundingClientRect();
-      const offsetX = e.clientX - svgRect.left - node.x;
-      const offsetY = e.clientY - svgRect.top - node.y;
-      setDragOffset({ x: offsetX, y: offsetY });
-      setIsDragging(true);
-    }
-  }, [node.x, node.y, onClick, onRemove, isEdgeMode, selectionMode]);
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      const clickedElement = e.target as Element;
+      if (clickedElement.closest('.remove-button-area')) {
+        e.stopPropagation();
+        onRemove();
+        return;
+      }
+      if (isEdgeMode || selectionMode) {
+        e.stopPropagation();
+        onClick();
+        return;
+      }
+      const svgElement = clickedElement.closest('svg');
+      if (svgElement) {
+        const svgRect = svgElement.getBoundingClientRect();
+        const offsetX = e.clientX - svgRect.left - node.x;
+        const offsetY = e.clientY - svgRect.top - node.y;
+        setDragOffset({ x: offsetX, y: offsetY });
+        setIsDragging(true);
+      }
+    },
+    [node.x, node.y, onClick, onRemove, isEdgeMode, selectionMode]
+  );
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!isDragging) return;
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isDragging) return;
 
-    const svgElement = (e.target as Element).closest('svg');
-    if (svgElement) {
-      const svgRect = svgElement.getBoundingClientRect();
-      const x = e.clientX - svgRect.left - dragOffset.x;
-      const y = e.clientY - svgRect.top - dragOffset.y;
-      onNodeMove(node.id, x, y);
-    }
-  }, [isDragging, dragOffset, node.id, onNodeMove]);
+      const svgElement = (e.target as Element).closest('svg');
+      if (svgElement) {
+        const svgRect = svgElement.getBoundingClientRect();
+        const x = e.clientX - svgRect.left - dragOffset.x;
+        const y = e.clientY - svgRect.top - dragOffset.y;
+        onNodeMove(node.id, x, y);
+      }
+    },
+    [isDragging, dragOffset, node.id, onNodeMove]
+  );
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);

@@ -12,7 +12,6 @@ interface EdgeControlsProps {
 }
 
 const EdgeControls: React.FC<EdgeControlsProps> = ({
-  onNodeSelect,
   selectedSource,
   selectedTarget,
   onReset,
@@ -61,13 +60,13 @@ const EdgeControls: React.FC<EdgeControlsProps> = ({
         {isEdgeMode && (
           <div className="space-y-2">
             <div className="text-sm text-slate-300">
-              {!selectedSource 
-                ? 'Select first node' 
-                : !selectedTarget 
-                  ? 'Select second node' 
+              {!selectedSource
+                ? 'Select first node'
+                : !selectedTarget
+                  ? 'Select second node'
                   : 'Set weight and confirm'}
             </div>
-            
+
             {(selectedSource || selectedTarget) && (
               <div className="flex items-center gap-2 text-sm text-slate-400">
                 {selectedSource && <span>From: {selectedSource}</span>}
@@ -83,14 +82,12 @@ const EdgeControls: React.FC<EdgeControlsProps> = ({
                     type="number"
                     min="1"
                     value={weight}
-                    onChange={(e) => setWeight(Math.max(1, parseInt(e.target.value) || 1))}
+                    onChange={(e) =>
+                      setWeight(Math.max(1, parseInt(e.target.value) || 1))
+                    }
                     className="w-20 px-2 py-1 bg-slate-700 border border-slate-600 rounded text-white text-sm"
                   />
-                  <Button
-                    variant="success"
-                    onClick={handleAddEdge}
-                    size="sm"
-                  >
+                  <Button variant="success" onClick={handleAddEdge} size="sm">
                     Confirm
                   </Button>
                 </div>

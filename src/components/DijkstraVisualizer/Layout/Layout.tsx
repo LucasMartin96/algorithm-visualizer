@@ -17,9 +17,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <AnimationControls />
           <Legend />
         </div>
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </div>
     </div>
   );

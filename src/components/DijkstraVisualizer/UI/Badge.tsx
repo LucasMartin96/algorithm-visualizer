@@ -18,7 +18,7 @@ const Badge: React.FC<BadgeProps> = ({
   };
 
   return (
-    <span 
+    <span
       className={`
         px-2 py-1 rounded-md text-sm flex items-center gap-1
         ${colorStyles[color]}

@@ -1,7 +1,18 @@
-"use client";
+'use client';
 
-import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { Edge, StepData, dijkstraWithSteps, getShortestPathEdges, calculatePathWithViaNodes } from '../../../utils/dijkstra';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from 'react';
+import {
+  Edge,
+  StepData,
+  getShortestPathEdges,
+  calculatePathWithViaNodes,
+} from '../../../utils/dijkstra';
 import { useGraph } from './GraphContext';
 
 interface AlgorithmContextType {
@@ -28,9 +39,13 @@ interface AlgorithmContextType {
   stepBackward: () => void;
 }
 
-const AlgorithmContext = createContext<AlgorithmContextType | undefined>(undefined);
+const AlgorithmContext = createContext<AlgorithmContextType | undefined>(
+  undefined
+);
 
-export const AlgorithmProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AlgorithmProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { graph } = useGraph();
   const [startNode, setStartNode] = useState<string | null>(null);
   const [endNode, setEndNode] = useState<string | null>(null);
@@ -42,21 +57,26 @@ export const AlgorithmProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [noPathExists, setNoPathExists] = useState<boolean>(false);
   const [animationSpeed, setAnimationSpeed] = useState(500);
-  const [animationTimer, setAnimationTimer] = useState<NodeJS.Timeout | null>(null);
+  const [animationTimer, setAnimationTimer] = useState<NodeJS.Timeout | null>(
+    null
+  );
 
-  const addViaNode = useCallback((node: string) => {
-    if (!viaNodes.includes(node) && node !== startNode && node !== endNode) {
-      setViaNodes(prev => [...prev, node]);
-    }
-  }, [viaNodes, startNode, endNode]);
+  const addViaNode = useCallback(
+    (node: string) => {
+      if (!viaNodes.includes(node) && node !== startNode && node !== endNode) {
+        setViaNodes((prev) => [...prev, node]);
+      }
+    },
+    [viaNodes, startNode, endNode]
+  );
 
   const removeViaNode = useCallback((node: string) => {
-    setViaNodes(prev => prev.filter(id => id !== node));
+    setViaNodes((prev) => prev.filter((id) => id !== node));
   }, []);
 
   const calculateShortestPath = useCallback(() => {
     if (!startNode || !endNode) return;
-    
+
     setShortestPath([]);
     setShortestPathEdges([]);
     setSteps([]);
@@ -69,7 +89,7 @@ export const AlgorithmProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       endNode,
       viaNodes
     );
-    
+
     if (!hasPath) {
       setNoPathExists(true);
     } else {
@@ -89,11 +109,11 @@ export const AlgorithmProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, [animationTimer]);
 
   const stepForward = useCallback(() => {
-    setCurrentStep(prev => Math.min(prev + 1, steps.length - 1));
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
   }, [steps.length]);
 
   const stepBackward = useCallback(() => {
-    setCurrentStep(prev => Math.max(prev - 1, 0));
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
   }, []);
 
   const animateAlgorithm = useCallback(() => {
@@ -104,9 +124,9 @@ export const AlgorithmProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setIsAnimating(true);
 
     const animate = () => {
-      setCurrentStep(prev => {
+      setCurrentStep((prev) => {
         const nextStep = prev + 1;
-        
+
         if (nextStep >= steps.length) {
           setIsAnimating(false);
           return prev;
@@ -143,29 +163,31 @@ export const AlgorithmProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, []);
 
   return (
-    <AlgorithmContext.Provider value={{
-      startNode,
-      endNode,
-      viaNodes,
-      shortestPath,
-      shortestPathEdges,
-      steps,
-      currentStep,
-      isAnimating,
-      noPathExists,
-      setStartNode,
-      setEndNode,
-      addViaNode,
-      removeViaNode,
-      calculateShortestPath,
-      animateAlgorithm,
-      resetAlgorithm,
-      animationSpeed,
-      setAnimationSpeed,
-      pauseAnimation,
-      stepForward,
-      stepBackward,
-    }}>
+    <AlgorithmContext.Provider
+      value={{
+        startNode,
+        endNode,
+        viaNodes,
+        shortestPath,
+        shortestPathEdges,
+        steps,
+        currentStep,
+        isAnimating,
+        noPathExists,
+        setStartNode,
+        setEndNode,
+        addViaNode,
+        removeViaNode,
+        calculateShortestPath,
+        animateAlgorithm,
+        resetAlgorithm,
+        animationSpeed,
+        setAnimationSpeed,
+        pauseAnimation,
+        stepForward,
+        stepBackward,
+      }}
+    >
       {children}
     </AlgorithmContext.Provider>
   );

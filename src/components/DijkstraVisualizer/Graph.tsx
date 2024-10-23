@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import Node from './Node';
@@ -26,21 +26,21 @@ const Graph: React.FC<GraphProps> = ({
   shortestPathEdges,
   currentStep,
   onRemoveNode,
-  onRemoveEdge,
   onNodeMove,
   selectionMode,
   viaNodes,
 }) => {
   const isEdgeInShortestPath = (edge: Edge) => {
     return shortestPathEdges.some(
-      e => (e.source === edge.source && e.target === edge.target) ||
-           (e.source === edge.target && e.target === edge.source)
+      (e) =>
+        (e.source === edge.source && e.target === edge.target) ||
+        (e.source === edge.target && e.target === edge.source)
     );
   };
 
   return (
     <div className="relative">
-      <svg 
+      <svg
         className="w-full h-[32rem] bg-slate-900 rounded-lg"
         viewBox="0 0 1200 600"
         preserveAspectRatio="xMidYMid meet"
@@ -48,16 +48,16 @@ const Graph: React.FC<GraphProps> = ({
       >
         {/* Grid background */}
         <defs>
-          <pattern 
-            id="grid" 
-            width="40" 
-            height="40" 
+          <pattern
+            id="grid"
+            width="40"
+            height="40"
             patternUnits="userSpaceOnUse"
           >
-            <path 
-              d="M 40 0 L 0 0 0 40" 
-              fill="none" 
-              stroke="rgb(51 65 85)" 
+            <path
+              d="M 40 0 L 0 0 0 40"
+              fill="none"
+              stroke="rgb(51 65 85)"
               strokeWidth="1"
             />
           </pattern>
@@ -66,8 +66,8 @@ const Graph: React.FC<GraphProps> = ({
 
         {/* Edges */}
         {graph.edges.map((edge) => {
-          const sourceNode = graph.nodes.find(n => n.id === edge.source);
-          const targetNode = graph.nodes.find(n => n.id === edge.target);
+          const sourceNode = graph.nodes.find((n) => n.id === edge.source);
+          const targetNode = graph.nodes.find((n) => n.id === edge.target);
           if (!sourceNode || !targetNode) return null;
 
           const midX = (sourceNode.x + targetNode.x) / 2;
@@ -83,13 +83,14 @@ const Graph: React.FC<GraphProps> = ({
                 y2={targetNode.y}
                 className={`
                   stroke-2 transition-colors duration-300
-                  ${isEdgeInShortestPath(edge) 
-                    ? 'stroke-pink-400 stroke-[3px]' 
-                    : 'stroke-slate-600'
+                  ${
+                    isEdgeInShortestPath(edge)
+                      ? 'stroke-pink-400 stroke-[3px]'
+                      : 'stroke-slate-600'
                   }
                 `}
               />
-              
+
               {/* Edge weight */}
               <g transform={`translate(${midX},${midY})`}>
                 <rect
@@ -122,7 +123,9 @@ const Graph: React.FC<GraphProps> = ({
             isStart={node.id === startNode}
             isEnd={node.id === endNode}
             isVia={viaNodes?.includes(node.id) ?? false}
-            isInPath={shortestPathEdges.some(e => e.source === node.id || e.target === node.id)}
+            isInPath={shortestPathEdges.some(
+              (e) => e.source === node.id || e.target === node.id
+            )}
             distance={currentStep?.distances?.[node.id]}
             onNodeMove={onNodeMove}
             selectionMode={selectionMode}

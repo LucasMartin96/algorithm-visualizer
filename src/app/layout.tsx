@@ -1,20 +1,16 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import './globals.css'
-import { Inter } from 'next/font/google'
-import Header from '@/components/layout/Header'
-
-const inter = Inter({ subsets: ['latin'] })
+import './globals.css';
 
 export const metadata: Metadata = {
   title: "Dijkstra's Algorithm Visualizer",
-  description: 'Visualize Dijkstra\'s algorithm for finding the shortest path',
-}
+  description: "Visualize Dijkstra's algorithm for finding the shortest path",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -22,5 +18,5 @@ export default function RootLayout({
         {children}
       </body>
     </html>
-  )
+  );
 }

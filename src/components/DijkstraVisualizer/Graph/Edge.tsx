@@ -7,16 +7,17 @@ interface EdgeProps {
   onRemove: () => void;
 }
 
-const Edge: React.FC<EdgeProps> = ({ edge, nodePositions, isInPath, onRemove }) => {
+const Edge: React.FC<EdgeProps> = ({
+  edge,
+  nodePositions,
+  isInPath,
+  onRemove,
+}) => {
   const source = nodePositions[edge.source];
   const target = nodePositions[edge.target];
 
   if (!source || !target) return null;
 
-  const dx = target.x - source.x;
-  const dy = target.y - source.y;
-  const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-  const length = Math.sqrt(dx * dx + dy * dy);
   const midX = (source.x + target.x) / 2;
   const midY = (source.y + target.y) / 2;
 

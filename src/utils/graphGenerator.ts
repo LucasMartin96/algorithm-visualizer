@@ -2,8 +2,8 @@ import { GraphData } from './dijkstra';
 
 export function generateRandomGraph(nodeCount: number = 6): GraphData {
   const getRandomPosition = () => ({
-    x: Math.floor(Math.random() * 1000) + 100, 
-    y: Math.floor(Math.random() * 400) + 100, 
+    x: Math.floor(Math.random() * 1000) + 100,
+    y: Math.floor(Math.random() * 400) + 100,
   });
 
   const nodes = Array.from({ length: nodeCount }, (_, i) => ({
@@ -16,30 +16,32 @@ export function generateRandomGraph(nodeCount: number = 6): GraphData {
     edges.push({
       source: nodes[i].id,
       target: nodes[i + 1].id,
-      weight: Math.floor(Math.random() * 9) + 1, 
+      weight: Math.floor(Math.random() * 9) + 1,
     });
   }
 
   const additionalEdgesCount = Math.floor(nodeCount * 0.5);
   for (let i = 0; i < additionalEdgesCount; i++) {
     const sourceIndex = Math.floor(Math.random() * nodes.length);
-    let targetIndex: number = -1; 
-    
+    let targetIndex: number = -1;
+
     do {
       targetIndex = Math.floor(Math.random() * nodes.length);
     } while (
       targetIndex === sourceIndex ||
       edges.some(
-        edge =>
-          (edge.source === nodes[sourceIndex].id && edge.target === nodes[targetIndex].id) ||
-          (edge.source === nodes[targetIndex].id && edge.target === nodes[sourceIndex].id)
+        (edge) =>
+          (edge.source === nodes[sourceIndex].id &&
+            edge.target === nodes[targetIndex].id) ||
+          (edge.source === nodes[targetIndex].id &&
+            edge.target === nodes[sourceIndex].id)
       )
     );
 
     edges.push({
       source: nodes[sourceIndex].id,
       target: nodes[targetIndex].id,
-      weight: Math.floor(Math.random() * 9) + 1, 
+      weight: Math.floor(Math.random() * 9) + 1,
     });
   }
 

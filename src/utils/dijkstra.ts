@@ -22,23 +22,27 @@ export interface StepData {
   visited: Set<string>;
 }
 
-export function dijkstraWithSteps(graph: GraphData, start: string, end: string): { 
-  path: string[], 
-  steps: StepData[],
-  hasPath: boolean
+export function dijkstraWithSteps(
+  graph: GraphData,
+  start: string,
+  end: string
+): {
+  path: string[];
+  steps: StepData[];
+  hasPath: boolean;
 } {
   const distances: { [key: string]: number } = {};
   const previous: { [key: string]: string | null } = {};
   const unvisited = new Set<string>();
   const steps: StepData[] = [];
-  graph.nodes.forEach(node => {
+  graph.nodes.forEach((node) => {
     distances[node.id] = node.id === start ? 0 : Infinity;
     previous[node.id] = null;
     unvisited.add(node.id);
   });
 
   while (unvisited.size > 0) {
-    let current = Array.from(unvisited).reduce((minNode, node) => 
+    const current = Array.from(unvisited).reduce((minNode, node) =>
       distances[node] < distances[minNode] ? node : minNode
     );
 
@@ -48,15 +52,17 @@ export function dijkstraWithSteps(graph: GraphData, start: string, end: string):
     steps.push({
       currentNode: current,
       distances: { ...distances },
-      previous: { ...previous }, 
-      visited: new Set(graph.nodes.map(n => n.id).filter(id => !unvisited.has(id)))
+      previous: { ...previous },
+      visited: new Set(
+        graph.nodes.map((n) => n.id).filter((id) => !unvisited.has(id))
+      ),
     });
 
     if (current === end) break;
 
     unvisited.delete(current);
     const edges = graph.edges.filter(
-      edge => edge.source === current || edge.target === current
+      (edge) => edge.source === current || edge.target === current
     );
 
     for (const edge of edges) {
@@ -79,10 +85,10 @@ export function dijkstraWithSteps(graph: GraphData, start: string, end: string):
   }
   const hasPath = path[0] === start && path[path.length - 1] === end;
 
-  return { 
-    path: hasPath ? path : [], 
+  return {
+    path: hasPath ? path : [],
     steps,
-    hasPath
+    hasPath,
   };
 }
 
@@ -92,7 +98,7 @@ export function getShortestPathEdges(path: string[]): Edge[] {
     pathEdges.push({
       source: path[i],
       target: path[i + 1],
-      weight: 0
+      weight: 0,
     });
   }
   return pathEdges;
@@ -116,7 +122,7 @@ export function calculatePathWithViaNodes(
 
   for (const nextTarget of nodesToVisit) {
     const result = dijkstraWithSteps(graph, currentStart, nextTarget);
-    
+
     if (result.path.length === 0) {
       hasValidPath = false;
       break;
@@ -134,6 +140,6 @@ export function calculatePathWithViaNodes(
   return {
     path: hasValidPath ? currentPath : [],
     steps: allSteps,
-    hasPath: hasValidPath
+    hasPath: hasValidPath,
   };
 }

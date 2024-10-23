@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useCallback } from 'react';
 import { Node as NodeType } from '../../utils/dijkstra';
@@ -31,40 +31,46 @@ const Node: React.FC<NodeProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    const clickedElement = e.target as Element;
-    if (clickedElement.closest('.remove-button-area')) {
-      e.stopPropagation();
-      onRemove();
-      return;
-    }
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      const clickedElement = e.target as Element;
+      if (clickedElement.closest('.remove-button-area')) {
+        e.stopPropagation();
+        onRemove();
+        return;
+      }
 
-    if (selectionMode) {
-      onClick();
-      return;
-    }
+      if (selectionMode) {
+        onClick();
+        return;
+      }
 
-    const svgElement = clickedElement.closest('svg');
-    if (svgElement) {
-      const svgRect = svgElement.getBoundingClientRect();
-      const offsetX = e.clientX - svgRect.left - node.x;
-      const offsetY = e.clientY - svgRect.top - node.y;
-      setDragOffset({ x: offsetX, y: offsetY });
-      setIsDragging(true);
-    }
-  }, [node.x, node.y, onClick, onRemove, selectionMode]);
+      const svgElement = clickedElement.closest('svg');
+      if (svgElement) {
+        const svgRect = svgElement.getBoundingClientRect();
+        const offsetX = e.clientX - svgRect.left - node.x;
+        const offsetY = e.clientY - svgRect.top - node.y;
+        setDragOffset({ x: offsetX, y: offsetY });
+        setIsDragging(true);
+      }
+    },
+    [node.x, node.y, onClick, onRemove, selectionMode]
+  );
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!isDragging || selectionMode) return;
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isDragging || selectionMode) return;
 
-    const svgElement = (e.target as Element).closest('svg');
-    if (svgElement) {
-      const svgRect = svgElement.getBoundingClientRect();
-      const x = e.clientX - svgRect.left - dragOffset.x;
-      const y = e.clientY - svgRect.top - dragOffset.y;
-      onNodeMove(node.id, x, y);
-    }
-  }, [isDragging, dragOffset, node.id, onNodeMove, selectionMode]);
+      const svgElement = (e.target as Element).closest('svg');
+      if (svgElement) {
+        const svgRect = svgElement.getBoundingClientRect();
+        const x = e.clientX - svgRect.left - dragOffset.x;
+        const y = e.clientY - svgRect.top - dragOffset.y;
+        onNodeMove(node.id, x, y);
+      }
+    },
+    [isDragging, dragOffset, node.id, onNodeMove, selectionMode]
+  );
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
@@ -92,7 +98,9 @@ const Node: React.FC<NodeProps> = ({
   return (
     <g
       onMouseDown={handleMouseDown}
-      style={{ cursor: selectionMode ? 'pointer' : isDragging ? 'grabbing' : 'grab' }}
+      style={{
+        cursor: selectionMode ? 'pointer' : isDragging ? 'grabbing' : 'grab',
+      }}
       className="transition-transform duration-150"
     >
       {/* Node shadow */}
@@ -103,7 +111,7 @@ const Node: React.FC<NodeProps> = ({
         className={`opacity-40 ${getNodeColor()}`}
         filter="blur(8px)"
       />
-      
+
       {/* Main node circle */}
       <circle
         cx={node.x}
