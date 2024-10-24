@@ -12,7 +12,6 @@ const AnimationControls: React.FC = () => {
     isAnimating,
     startSorting,
     pauseAnimation,
-    stepForward,
     stepBackward,
     animationSpeed,
     setAnimationSpeed,
