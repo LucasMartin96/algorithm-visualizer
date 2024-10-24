@@ -1,3 +1,6 @@
+import { visualizerStyles } from '@/styles/visualizer';
+import { cn } from '@/utils/cn';
+
 interface ArrayBarProps {
   value: number;
   height: string;
@@ -11,13 +14,21 @@ const ArrayBar: React.FC<ArrayBarProps> = ({
   isComparing,
   isSorted,
 }) => {
+  const barStyle = cn(
+    visualizerStyles.arrayBar.base,
+    isComparing
+      ? visualizerStyles.arrayBar.states.comparing
+      : isSorted
+        ? visualizerStyles.arrayBar.states.sorted
+        : visualizerStyles.arrayBar.states.default
+  );
+
   return (
     <div
-      className={`
-        w-4 transition-all duration-200
-        ${isComparing ? 'bg-indigo-500' : isSorted ? 'bg-emerald-400' : 'bg-slate-400'}
-      `}
+      className={barStyle}
       style={{ height }}
+      role="presentation"
+      aria-label={`Value: ${value}`}
     >
       <div className="sr-only">{value}</div>
     </div>

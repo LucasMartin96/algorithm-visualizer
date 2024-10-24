@@ -1,8 +1,18 @@
+'use client';
+
 import React from 'react';
 import { useArray } from '../Context/ArrayContext';
 import { useAlgorithm } from '../Context/AlgorithmContext';
 import Button from '@/components/ui/Button';
+import { visualizerStyles } from '@/styles/visualizer';
+import { componentStyles } from '@/styles/components';
 import type { AlgorithmType } from '../types';
+
+const algorithms = [
+  { value: 'bubble', label: 'Bubble Sort' },
+  { value: 'quick', label: 'Quick Sort' },
+  { value: 'merge', label: 'Merge Sort' },
+] as const;
 
 const Header: React.FC = () => {
   const { generateNewArray } = useArray();
@@ -11,35 +21,28 @@ const Header: React.FC = () => {
     resetAlgorithm,
     selectedAlgorithm,
     setSelectedAlgorithm,
+    isAnimating,
   } = useAlgorithm();
 
-  const algorithms = [
-    { value: 'bubble', label: 'Bubble Sort' },
-    { value: 'quick', label: 'Quick Sort' },
-    { value: 'merge', label: 'Merge Sort' },
-  ] as const;
-
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-start">
-        <div className="space-y-2">
-          <div>
-            <h2 className="text-2xl font-bold text-white">
-              Sorting Algorithm Visualizer
-            </h2>
-            <p className="text-slate-300">
-              Visualize how different sorting algorithms work
-            </p>
-          </div>
+    <div className={visualizerStyles.header.wrapper}>
+      <div className={visualizerStyles.header.container}>
+        <div className={visualizerStyles.header.titleGroup}>
+          <h2 className={visualizerStyles.header.title}>
+            Sorting Algorithm Visualizer
+          </h2>
+          <p className={visualizerStyles.header.subtitle}>
+            Visualize how different sorting algorithms work
+          </p>
         </div>
 
-        <div className="flex flex-wrap gap-2 items-start justify-end">
+        <div className={visualizerStyles.header.controls}>
           <select
             value={selectedAlgorithm}
             onChange={(e) =>
               setSelectedAlgorithm(e.target.value as AlgorithmType)
             }
-            className="bg-slate-700 text-white rounded-lg px-3 py-2 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={componentStyles.select.base}
           >
             {algorithms.map((algo) => (
               <option key={algo.value} value={algo.value}>
@@ -47,13 +50,25 @@ const Header: React.FC = () => {
               </option>
             ))}
           </select>
-          <Button variant="secondary" onClick={generateNewArray}>
+          <Button
+            variant="secondary"
+            onClick={generateNewArray}
+            disabled={isAnimating}
+          >
             New Array
           </Button>
-          <Button variant="primary" onClick={startSorting}>
+          <Button
+            variant="primary"
+            onClick={startSorting}
+            disabled={isAnimating}
+          >
             Sort!
           </Button>
-          <Button variant="secondary" onClick={resetAlgorithm}>
+          <Button
+            variant="secondary"
+            onClick={resetAlgorithm}
+            disabled={isAnimating}
+          >
             Reset
           </Button>
         </div>

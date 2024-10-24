@@ -3,6 +3,7 @@ import Header from './Header';
 import StatusBar from './StatusBar';
 import AnimationControls from '../Algorithm/AnimationControls';
 import Legend from './Legend';
+import { layoutStyles } from '@/styles/layout';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,10 +11,10 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="bg-slate-800 rounded-xl shadow-xl p-6 border border-slate-700">
-      <div className="space-y-6">
+    <div className={layoutStyles.card.wrapper}>
+      <div className={layoutStyles.section.wrapper}>
         <Header />
-        <div className="space-y-4">
+        <div className={layoutStyles.section.content}>
           <StatusBar />
           <AnimationControls />
           <Legend />

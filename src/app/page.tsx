@@ -3,6 +3,7 @@ import HeroSection from '@/components/home/HeroSection';
 import Section from '@/components/layout/Section';
 import Card from '@/components/ui/Card';
 import AlgorithmList from '@/components/ui/AlgorithmList';
+import { layoutStyles } from '@/styles/layout';
 import {
   pathfindingAlgorithms,
   sortingAlgorithms,
@@ -11,11 +12,11 @@ import {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-900">
+    <main className={layoutStyles.page.wrapper}>
       <HeroSection />
 
       <Section darker>
-        <h2 className="text-3xl font-bold text-center mb-12 text-white">
+        <h2 className={layoutStyles.section.title}>
           Available & Upcoming Algorithms
         </h2>
 
@@ -36,7 +37,7 @@ export default function Home() {
 
       <Section>
         <div className="text-center">
-          <h2 className="text-3xl font-bold mb-6 text-white">
+          <h2 className={layoutStyles.section.title}>
             Visualize to Understand
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">

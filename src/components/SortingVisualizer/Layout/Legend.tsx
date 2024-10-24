@@ -1,16 +1,21 @@
+import { visualizerStyles } from '@/styles/visualizer';
+
 const legendItems = [
-  { color: 'bg-indigo-500', description: 'Comparing' },
-  { color: 'bg-emerald-400', description: 'Sorted' },
-  { color: 'bg-slate-400', description: 'Unsorted' },
-];
+  { state: 'comparing', label: 'Comparing' },
+  { state: 'sorted', label: 'Sorted' },
+  { state: 'unsorted', label: 'Unsorted' },
+] as const;
 
 const Legend = () => {
   return (
-    <div className="flex gap-6 text-sm bg-slate-700/50 p-4 rounded-lg">
-      {legendItems.map((item, index) => (
-        <div key={index} className="flex items-center gap-2">
-          <div className={`w-3 h-3 rounded-full ${item.color}`} />
-          <span className="text-slate-300">{item.description}</span>
+    <div className={visualizerStyles.legend.wrapper}>
+      {legendItems.map(({ state, label }) => (
+        <div key={state} className={visualizerStyles.legend.item}>
+          <div
+            className={`${visualizerStyles.legend.indicator} ${visualizerStyles.legend.states[state]}`}
+            aria-hidden="true"
+          />
+          <span className={visualizerStyles.legend.label}>{label}</span>
         </div>
       ))}
     </div>
