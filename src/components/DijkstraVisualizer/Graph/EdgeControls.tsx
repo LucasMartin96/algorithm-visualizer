@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useGraph } from '../Context/GraphContext';
-import Button from '../UI/Button';
+import Button from '../../ui/Button';
 
 interface EdgeControlsProps {
   onNodeSelect: (nodeId: string) => void;

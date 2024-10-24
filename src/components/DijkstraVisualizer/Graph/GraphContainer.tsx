@@ -6,7 +6,7 @@ import Node from './Node';
 import Edge from './Edge';
 import EdgeControls from './EdgeControls';
 import GridBackground from './GridBackground';
-import { SelectionMode } from './types';  // adjust the path if needed
+import { SelectionMode } from './types';
 
 const GraphContainer: React.FC = () => {
   const { graph, removeNode, removeEdge, handleNodeMove } = useGraph();
@@ -29,15 +29,15 @@ const GraphContainer: React.FC = () => {
     selectedSource,
     selectedTarget,
     handleNodeClick,
-    resetEdgeSelection
+    resetEdgeSelection,
   } = useEdgeSelection(
-    setStartNode, 
-    setEndNode, 
-    addViaNode, 
-    selectionMode, 
+    setStartNode,
+    setEndNode,
+    addViaNode,
+    selectionMode,
     (mode: SelectionMode | null) => {
       if (mode !== null) setSelectionMode(mode);
-    } 
+    }
   );
 
   const currentProcessingNode =
@@ -64,6 +64,11 @@ const GraphContainer: React.FC = () => {
         viewBox="0 0 1200 600"
         preserveAspectRatio="xMidYMid meet"
         style={{ touchAction: 'none' }}
+        onClick={() => {
+          if (selectionMode) {
+            setSelectionMode(null);
+          }
+        }}
       >
         <GridBackground />
         {graph.edges.map((edge) => (

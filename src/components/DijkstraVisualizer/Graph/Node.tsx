@@ -42,14 +42,14 @@ const Node: React.FC<NodeProps> = ({
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent) => {
+      e.stopPropagation();
+
       const clickedElement = e.target as Element;
       if (clickedElement.closest('.remove-button-area')) {
-        e.stopPropagation();
         onRemove();
         return;
       }
       if (isEdgeMode || selectionMode) {
-        e.stopPropagation();
         onClick();
         return;
       }

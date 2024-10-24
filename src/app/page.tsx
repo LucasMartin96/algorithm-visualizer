@@ -3,23 +3,11 @@ import HeroSection from '@/components/home/HeroSection';
 import Section from '@/components/layout/Section';
 import Card from '@/components/ui/Card';
 import AlgorithmList from '@/components/ui/AlgorithmList';
-
-const pathfindingAlgorithms = [
-  { name: "Dijkstra's Algorithm", status: 'available' as const },
-  { name: 'A* Algorithm', status: 'coming-soon' as const },
-  { name: 'BFS & DFS', status: 'coming-soon' as const },
-];
-
-const sortingAlgorithms = [
-  { name: 'Bubble Sort', status: 'coming-soon' as const },
-  { name: 'Quick Sort', status: 'coming-soon' as const },
-  { name: 'Merge Sort', status: 'coming-soon' as const },
-];
-
-const otherAlgorithms = [
-  { name: 'Binary Search', status: 'coming-soon' as const },
-  { name: 'Graph Traversal', status: 'coming-soon' as const },
-];
+import {
+  pathfindingAlgorithms,
+  sortingAlgorithms,
+  otherAlgorithms,
+} from '@/data/algorithms';
 
 export default function Home() {
   return (

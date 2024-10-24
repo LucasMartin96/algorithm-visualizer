@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from '../UI/Button';
+import Button from '../../ui/Button';
 import InfoPanel from '../UI/InfoPanel';
 import { useGraph } from '../Context/GraphContext';
 import { useAlgorithm } from '../Context/AlgorithmContext';

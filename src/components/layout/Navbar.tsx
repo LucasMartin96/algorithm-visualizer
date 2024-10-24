@@ -2,33 +2,41 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { cn } from '@/utils/cn';
+
+const navigation = [
+  { name: 'Home', href: '/' },
+  { name: 'Dijkstra', href: '/dijkstra' },
+  { name: 'Sorting', href: '/sorting' },
+];
 
 const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-gray-900 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+    <nav className="bg-slate-800 border-b border-slate-700">
+      <div className="container mx-auto max-w-7xl px-4">
+        <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <Link
-              href="/"
-              className="text-xl font-bold text-blue-500 hover:text-blue-400"
-            >
+            <Link href="/" className="text-white font-bold text-xl">
               AlgoViz
             </Link>
-          </div>
-          <div className="flex items-center space-x-4">
-            <Link
-              href="/dijkstra"
-              className={`px-3 py-2 rounded-md text-sm font-medium ${
-                pathname === '/dijkstra'
-                  ? 'bg-blue-500 text-white'
-                  : 'text-gray-300 hover:bg-gray-800'
-              }`}
-            >
-              Dijkstra Visualizer
-            </Link>
+            <div className="ml-10 flex items-center space-x-4">
+              {navigation.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                    pathname === item.href
+                      ? 'bg-slate-900 text-white'
+                      : 'text-slate-300 hover:bg-slate-700 hover:text-white'
+                  )}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

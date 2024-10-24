@@ -10,9 +10,9 @@ export const pathfindingAlgorithms: Algorithm[] = [
 ];
 
 export const sortingAlgorithms: Algorithm[] = [
-  { name: 'Bubble Sort', status: 'coming-soon' },
-  { name: 'Quick Sort', status: 'coming-soon' },
-  { name: 'Merge Sort', status: 'coming-soon' },
+  { name: 'Bubble Sort', status: 'available' },
+  { name: 'Quick Sort', status: 'available' },
+  { name: 'Merge Sort', status: 'available' },
 ];
 
 export const otherAlgorithms: Algorithm[] = [

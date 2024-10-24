@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { SelectionMode } from '../types'
+import { useState } from 'react';
+import { SelectionMode } from '../types';
 
 export const useEdgeSelection = (
   setStartNode: (node: string | null) => void,
@@ -8,40 +8,40 @@ export const useEdgeSelection = (
   selectionMode: SelectionMode | null,
   setSelectionMode: (mode: SelectionMode | null) => void
 ) => {
-  const [isEdgeMode, setIsEdgeMode] = useState(false)
-  const [selectedSource, setSelectedSource] = useState<string | null>(null)
-  const [selectedTarget, setSelectedTarget] = useState<string | null>(null)
+  const [isEdgeMode, setIsEdgeMode] = useState(false);
+  const [selectedSource, setSelectedSource] = useState<string | null>(null);
+  const [selectedTarget, setSelectedTarget] = useState<string | null>(null);
 
   const handleNodeClick = (nodeId: string) => {
     if (isEdgeMode) {
       if (!selectedSource) {
-        setSelectedSource(nodeId)
+        setSelectedSource(nodeId);
       } else if (nodeId !== selectedSource) {
-        setSelectedTarget(nodeId)
+        setSelectedTarget(nodeId);
       }
-      return
+      return;
     }
-    
+
     switch (selectionMode) {
       case 'start':
-        setStartNode(nodeId)
-        setSelectionMode(null)
-        break
+        setStartNode(nodeId);
+        setSelectionMode(null);
+        break;
       case 'end':
-        setEndNode(nodeId)
-        setSelectionMode(null)
-        break
+        setEndNode(nodeId);
+        setSelectionMode(null);
+        break;
       case 'via':
-        addViaNode(nodeId)
-        setSelectionMode(null)
-        break
+        addViaNode(nodeId);
+        setSelectionMode(null);
+        break;
     }
-  }
+  };
 
   const resetEdgeSelection = () => {
-    setSelectedSource(null)
-    setSelectedTarget(null)
-  }
+    setSelectedSource(null);
+    setSelectedTarget(null);
+  };
 
   return {
     isEdgeMode,
@@ -49,6 +49,6 @@ export const useEdgeSelection = (
     selectedSource,
     selectedTarget,
     handleNodeClick,
-    resetEdgeSelection
-  }
-}
+    resetEdgeSelection,
+  };
+};

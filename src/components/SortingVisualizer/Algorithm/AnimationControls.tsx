@@ -1,21 +1,27 @@
-import Button from '../../ui/Button';
+'use client';
+
+import React from 'react';
 import { useAlgorithm } from '../Context/AlgorithmContext';
+import Button from '@/components/ui/Button';
+import Slider from '@/components/ui/Slider';
 
 const AnimationControls: React.FC = () => {
   const {
     steps,
     currentStep,
     isAnimating,
-    animateAlgorithm,
+    startSorting,
     pauseAnimation,
     stepForward,
     stepBackward,
+    animationSpeed,
+    setAnimationSpeed,
   } = useAlgorithm();
 
   if (steps.length === 0) return null;
 
   return (
-    <div className="flex items-center gap-4 bg-slate-700/50 p-4 rounded-lg">
+    <div className="flex items-center justify-between gap-4 bg-slate-700/50 p-4 rounded-lg">
       <div className="flex items-center gap-2">
         <Button
           variant="secondary"
@@ -34,10 +40,9 @@ const AnimationControls: React.FC = () => {
         </Button>
 
         <Button
-          variant="primary"
-          onClick={isAnimating ? pauseAnimation : animateAlgorithm}
+          variant={isAnimating ? 'danger' : 'primary'}
+          onClick={isAnimating ? pauseAnimation : startSorting}
           size="sm"
-          aria-label={isAnimating ? 'Pause animation' : 'Play animation'}
         >
           {isAnimating ? (
             <div className="flex items-center gap-2">
@@ -81,16 +86,21 @@ const AnimationControls: React.FC = () => {
         </Button>
       </div>
 
-      <div className="flex items-center gap-2 flex-1">
+      <div className="flex items-center gap-4">
+        <span className="text-sm text-slate-300">Animation Speed</span>
+        <Slider
+          min={1}
+          max={5}
+          value={animationSpeed}
+          onChange={setAnimationSpeed}
+          className="w-32"
+        />
+      </div>
+
+      <div className="flex items-center gap-2">
         <span className="text-sm text-slate-300">
           Step {currentStep + 1} of {steps.length}
         </span>
-        <div className="flex-1 h-1 bg-slate-600 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-violet-400 transition-all duration-200"
-            style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
-          />
-        </div>
       </div>
     </div>
   );

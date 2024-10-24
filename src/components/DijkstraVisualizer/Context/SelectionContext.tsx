@@ -18,7 +18,9 @@ const SelectionContext = createContext<SelectionContextType | undefined>(
 export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [selectionMode, setSelectionMode] = useState<SelectionMode | null>(null);
+  const [selectionMode, setSelectionMode] = useState<SelectionMode | null>(
+    null
+  );
   const { setStartNode, setEndNode, addViaNode } = useAlgorithm();
 
   const handleNodeSelection = useCallback(
