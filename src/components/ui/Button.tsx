@@ -36,7 +36,12 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      className={cn(buttonStyles.base, variantStyles[variant], sizeStyles, className)}
+      className={cn(
+        buttonStyles.base,
+        variantStyles[variant],
+        sizeStyles,
+        className
+      )}
       {...props}
     >
       {children}
